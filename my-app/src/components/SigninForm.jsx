@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import "./Form.css";
 import { signin } from "../api";
 import { useNavigate } from "react-router-dom";
+import "./Form.css";
+import appLogo from "../assets/app_logo.png";
+import loginImg from "../assets/login.png";
 
 function SigninForm({ onSignin, onSwitch }) {
   const [form, setForm] = useState({
@@ -10,6 +12,7 @@ function SigninForm({ onSignin, onSwitch }) {
     staySignedIn: false,
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,80 +25,108 @@ function SigninForm({ onSignin, onSwitch }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setLoading(true);
+
     try {
       const user = await signin({
         email: form.email,
         password: form.password,
       });
+
       localStorage.setItem("user", JSON.stringify(user));
       if (onSignin) onSignin(user);
 
-      // Redirect to success page
       navigate("/success");
     } catch (err) {
-      alert("Signin failed: " + err.message);
+      console.error("Signin error:", err);
+      setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="form-container">
-      <form className="form-box" onSubmit={handleSubmit}>
-        <div className="avatar"></div>
-        <h2>Sign In</h2>
+    <div className="split-container">
+      <div className="auth-card">
+        {/* Left - Image */}
+        <div className="form-left">
+          <img src={loginImg} alt="Login Illustration" className="left-image" />
+        </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Signing in..." : "Sign In"}
-        </button>
-
-        <div className="options">
-          <div className="stay-signed-in">
-            <input
-              type="checkbox"
-              id="stay"
-              name="staySignedIn"
-              checked={form.staySignedIn}
-              onChange={handleChange}
-            />
-            <label htmlFor="stay">Stay signed in</label>
+        {/* Right - Form */}
+        <div className="form-right">
+          {/* Logo */}
+          <div className="brand">
+            <img src={appLogo} alt="App Logo" className="brand-logo" />
+            <h1 className="brand-name">Nexora</h1>
           </div>
-          <a href="#">Need help?</a>
-        </div>
 
-        <div className="create">
-          <span
-            className="link-text"
-            onClick={onSwitch}
-            style={{
-              cursor: "pointer",
-              color: "#007bff",
-              textDecoration: "underline",
-            }}
-          >
-            Create an account
-          </span>
+          {/* Form */}
+          <div className="form-content">
+            <h2 className="form-welcome">Welcome Back</h2>
+            <p className="form-desc">Sign in to your account</p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Email</label>
+                <div className="input-wrapper">
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="Enter your email"
+                    required
+                  />
+                  <span className="input-icon">✉️</span>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Password</label>
+                <div className="input-wrapper">
+                  <input
+                    type="password"
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <span className="input-icon">🔒</span>
+                </div>
+              </div>
+
+              {error && <div className="error-box">{error}</div>}
+
+              <button type="submit" disabled={loading} className="signin-btn">
+                {loading ? "Signing In..." : "Sign In"}
+              </button>
+
+              <div className="options">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="staySignedIn"
+                    checked={form.staySignedIn}
+                    onChange={handleChange}
+                  />
+                  Stay signed in
+                </label>
+                <a href="#">Need help?</a>
+              </div>
+            </form>
+          </div>
+
+          {/* Switch */}
+          <div className="create">
+            <span className="link-text" onClick={onSwitch}>
+              Sign up
+            </span>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

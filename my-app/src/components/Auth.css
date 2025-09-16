@@ -1,17 +1,18 @@
 /* === Full Page Centering === */
-.split-container {
+.auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
   background: #f9fafb;
+  overflow: hidden;
 }
 
 /* === Card Layout === */
 .auth-card {
   display: flex;
-  width: 900px;
+  width: 950px;
   height: 600px;
   background: white;
   border-radius: 16px;
@@ -20,7 +21,7 @@
 }
 
 /* Left Section (Image) */
-.form-left {
+.auth-left {
   flex: 1;
   background: #f3f4f6;
   display: flex;
@@ -28,20 +29,21 @@
   justify-content: center;
 }
 
-.left-image {
+.auth-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* image fixed to card size */
 }
 
 /* Right Section (Form) */
-.form-right {
+.auth-right {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  justify-content: space-between; /* logo top, form middle, link bottom */
+  justify-content: space-between; /* brand top, form middle, links bottom */
   align-items: center;
+  overflow-y: auto; /* scrolls if content does not fit */
 }
 
 /* Branding */
@@ -70,6 +72,10 @@
 .form-content {
   width: 100%;
   max-width: 350px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form-welcome {
@@ -89,24 +95,20 @@
 
 /* Inputs */
 .form-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
   font-size: 14px;
   font-weight: 500;
   color: #374151;
-  margin-bottom: 0.5rem;
-  display: block;
+  margin-bottom: 0.4rem;
 }
 
-.input-wrapper {
-  position: relative;
-}
-
-.input-wrapper input {
-  width: 100%;
-  padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+.form-group input {
+  padding: 0.7rem;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 14px;
@@ -114,23 +116,15 @@
   transition: border-color 0.2s;
 }
 
-.input-wrapper input:focus {
+.form-group input:focus {
   border-color: #3b82f6;
 }
 
-.input-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Error */
-.error-box {
-  color: #b91c1c;
-  font-size: 14px;
-  margin-bottom: 1rem;
-  text-align: center;
+/* Checkbox */
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Button */
@@ -156,29 +150,11 @@
   cursor: not-allowed;
 }
 
-/* Options */
-.options {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  margin-top: 1rem;
-  color: #374151;
-}
-
-.options a {
-  color: #3b82f6;
-  text-decoration: none;
-}
-
-.options a:hover {
-  text-decoration: underline;
-}
-
-/* Switch */
-.create {
-  text-align: center;
+/* Bottom Links */
+.bottom-links {
   font-size: 14px;
   margin-top: 1rem;
+  text-align: center;
 }
 
 .link-text {
@@ -196,11 +172,14 @@
     height: auto;
   }
 
-  .form-left {
+  .auth-left {
     height: 200px;
+    flex: unset;
   }
 
-  .form-right {
+  .auth-right {
+    flex: unset;
     padding: 1.5rem;
+    overflow-y: visible; /* no scroll needed in mobile */
   }
 }

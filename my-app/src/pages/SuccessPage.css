@@ -1,0 +1,179 @@
+.success-container {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* remove extra padding to avoid scroll */
+  overflow: hidden; /* prevent scroll */
+}
+
+/* Centered card */
+.success-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 2rem 3rem;
+  width: 90%;
+  max-width: 800px;      /* reduced max-width for better centering */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* start content from top inside card */
+  align-items: center;
+  height: auto;          /* auto height instead of forcing 80vh */
+}
+
+/* Success Animation */
+.success-animation {
+  margin-bottom: 1.2rem; /* reduced gap */
+  transform: scale(0);
+  transition: transform 0.5s ease-out;
+}
+
+.success-animation.show {
+  transform: scale(1);
+}
+
+.success-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.success-circle.pulse {
+  animation: pulse 2s infinite;
+}
+
+.success-check {
+  color: white;
+  font-size: 32px;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Header */
+.success-header {
+  margin-bottom: 1.5rem; /* less spacing */
+}
+
+.success-header h1 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.3rem;
+}
+
+.success-header p {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* User Info */
+.user-info {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
+}
+
+.user-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.user-details div {
+  margin-bottom: 0.75rem;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  display: inline-block;
+  width: 80px;
+}
+
+.value {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.status {
+  font-size: 14px;
+  color: #10b981;
+  font-weight: 500;
+  background-color: #d1fae5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Footer */
+.footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footer p {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0;
+}

@@ -11,7 +11,7 @@ def create_user(db: Session, user: schemas.UserCreate):
         name=user.name,
         dob=user.dob,
         email=user.email,
-        password=user.password,  # plain text per request (insecure)
+        password=user.password,  # plain text per request (consider hashing)
         role=user.role or "student",
         is_admin=bool(user.is_admin),
     )
@@ -28,3 +28,29 @@ def authenticate_user(db: Session, email: str, password: str):
     if user.password != password:
         return None
     return user
+
+# -------------------------
+# Role-specific CRUD
+# -------------------------
+
+def create_student(db: Session, user_id: int, roll_number: str, department: str):
+    db_student = models.Student(
+        user_id=user_id,
+        roll_number=roll_number,
+        department=department
+    )
+    db.add(db_student)
+    db.commit()
+    db.refresh(db_student)
+    return db_student
+
+def create_teacher(db: Session, user_id: int, employee_id: str, specialization: str):
+    db_teacher = models.Teacher(
+        user_id=user_id,
+        employee_id=employee_id,
+        specialization=specialization
+    )
+    db.add(db_teacher)
+    db.commit()
+    db.refresh(db_teacher)
+    return db_teacher
